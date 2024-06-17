@@ -67,8 +67,11 @@ def get_folders():
 
     root = Path('.')
     sound_dir = root / 'sounds'
-    music = sound_dir.glob('*')
-    return [i for i in music]
+    sound_folders = sound_dir.glob('*')
+    folders_list = [i for i in sound_folders]
+    sorted_folders = sorted(folders_list)
+    return sorted_folders
+
 
 def main():
     
@@ -76,7 +79,6 @@ def main():
     pg.mixer.init(freq, bitsize, channels, buffer)
     folders = get_folders()
     folder_number = 0
-    print(len(folders))
     button_states = {0:False, 1:False, 2:False, 3:False, 4:False, 5:False}
     active_folder = folders[folder_number]
     sounds = [i for i in active_folder.glob('*')]
@@ -88,42 +90,36 @@ def main():
         if not button_0.value:
             button_states[0] = True
             parts_true(button_states)
-            print(sounds[0])
             play_music(0, sounds[0])
             time.sleep(1)
 
         if not button_1.value:
             button_states[1] = True
             parts_true(button_states)
-            print(sounds[1])
             play_music(1, sounds[1])
             time.sleep(1)
 
         if not button_2.value:
             button_states[2] = True
             parts_true(button_states)
-            print(sounds[2])
             play_music(2, sounds[2])
             time.sleep(1)
 
         if not button_3.value:
             button_states[3] = True
             parts_true(button_states)
-            print(sounds[3])
             play_music(3, sounds[3])
             time.sleep(1)
 
         if not button_4.value:
             button_states[4] = True
             parts_true(button_states)
-            print(sounds[4])
             play_music(4, sounds[4])
             time.sleep(1)
 
         if not button_5.value:
             button_states[5] = True
             parts_true(button_states)
-            print(sounds[5])
             play_music(5, sounds[5])
             time.sleep(1)
 
@@ -132,15 +128,13 @@ def main():
             full_circle()
             if folder_number == len(folders)-1:
                 folder_number = 0
-                print(folder_number)
             else:
                 folder_number += 1
-                print(folder_number)
+            active_folder = folders[folder_number]
             sounds = [i for i in active_folder.glob('*')]
             active_folder = folders[folder_number]
             for key in button_states:
                 button_states[key] = False
-            print(button_states)
 
 
 if __name__ == "__main__":
