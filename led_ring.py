@@ -1,6 +1,7 @@
 import board
 import neopixel
 import time
+
 num_pixels = 12
 pixels = neopixel.NeoPixel(board.D12, num_pixels, brightness=0.2)
 
@@ -9,14 +10,14 @@ def full_circle():
 
     for i in range(3):
         for i in range(num_pixels):
-            
+
             pixels[i] = (200, 0, 0)
-            if i <=10:
-                pixels[i+1] = (0, 100, 0)
+            if i <= 10:
+                pixels[i + 1] = (0, 100, 0)
             time.sleep(0.05)
             pixels[i] = (0, 0, 0)
-            if i <=10:
-                pixels[i+1] = (0, 0, 0)
+            if i <= 10:
+                pixels[i + 1] = (0, 0, 0)
 
 
 def start_light():
@@ -26,7 +27,7 @@ def start_light():
         time.sleep(0.5)
 
     for i in reversed(range(180)):
-        pixels.fill((0,i,i))
+        pixels.fill((0, i, i))
 
 
 def blink(times):
@@ -35,6 +36,10 @@ def blink(times):
         time.sleep(0.1)
         pixels.fill((0, 0, 0))
         time.sleep(0.1)
+
+
+def black_out():
+    pixels.fill((0, 0, 0))
 
 
 def wheel(pos):
@@ -46,7 +51,7 @@ def wheel(pos):
         b = 0
     elif pos < 170:
         pos -= 85
-        r = int(255 -pos * 3)
+        r = int(255 - pos * 3)
         g = 0
         b = int(pos * 3)
     else:
@@ -63,13 +68,14 @@ def rainbow(cycles):
             pixel_index = (i * 256 // num_pixels) + j
             pixels[i] = wheel(pixel_index & 255)
             if i <= 10:
-                pixels[i+1] = wheel(pixel_index & 255)
+                pixels[i + 1] = wheel(pixel_index & 255)
             pixels.show()
             time.sleep(0.01)
         for k in range(num_pixels):
-            pixels[k] = (0,0,0)
+            pixels[k] = (0, 0, 0)
             pixels.show()
             time.sleep(0.01)
+
 
 def parts_true(states):
     trues = []
@@ -77,7 +83,7 @@ def parts_true(states):
     for key in states:
         if states[key] == True:
             trues.append(key)
-            
+
     if 0 in trues:
         pixels[0] = (50, 0, 50)
         pixels[1] = (0, 50, 0)
@@ -96,9 +102,6 @@ def parts_true(states):
     if 5 in trues:
         pixels[10] = (50, 0, 50)
         pixels[11] = (0, 50, 0)
-
-
-
 
 
 """

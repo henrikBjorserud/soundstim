@@ -11,7 +11,7 @@ import threading
 import time
 from pathlib import Path
 import digitalio
-from led_ring import rainbow, blink, parts_true, full_circle, start_light
+from led_ring import blink, parts_true, full_circle, start_light, black_out
 
 freq = 44100  # audio CD quality
 bitsize = -16  # unsigned 16 bit
@@ -46,10 +46,7 @@ class Watchdog:
         self._t = None
 
     def do_expire(self):
-        if pg.mixer.music.get_busy():
-            self._t.refresh()
-        else:
-            blink(1)
+        black_out()
 
     def start(self):
         if self._t is None:
